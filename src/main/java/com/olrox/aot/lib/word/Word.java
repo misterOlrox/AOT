@@ -24,4 +24,6 @@ public interface Word extends Serializable {
     void removeAllTags();
 
     Set<String> getTags();
+
+    String getTagsRepr();
 }

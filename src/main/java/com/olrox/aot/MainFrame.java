@@ -21,7 +21,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,11 +64,11 @@ public class MainFrame extends JFrame {
                 }
             }
         });
-        readText(Paths.get("./src/main/resources/text1.txt"));
-        readText(Paths.get("./src/main/resources/text2.txt"));
-        readText(Paths.get("./src/main/resources/text3.txt"));
-        readText(Paths.get("./src/main/resources/text4.txt"));
-        readText(Paths.get("./src/main/resources/text5.txt"));
+//        readText(Paths.get("./src/main/resources/text1.txt"));
+//        readText(Paths.get("./src/main/resources/text2.txt"));
+//        readText(Paths.get("./src/main/resources/text3.txt"));
+//        readText(Paths.get("./src/main/resources/text4.txt"));
+//        readText(Paths.get("./src/main/resources/text5.txt"));
     }
 
     public void readText(Path path) {
@@ -90,6 +89,11 @@ public class MainFrame extends JFrame {
 
     public void clearDictionary() {
         dictionary.clear();
+        wordTableModel.fireTableDataChanged();
+    }
+
+    public void tagDictionary() {
+        dictionary.tagDictionary();
         wordTableModel.fireTableDataChanged();
     }
 

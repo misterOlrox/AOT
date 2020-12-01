@@ -24,7 +24,7 @@ public class WordTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 2;
+        return 3;
     }
 
     @Override
@@ -34,6 +34,8 @@ public class WordTableModel extends AbstractTableModel {
                 return filteredList.get(r).getValue();
             case 1:
                 return filteredList.get(r).getFrequency();
+            case 2:
+                return filteredList.get(r).getTagsRepr();
             default:
                 return "";
         }
@@ -66,6 +68,8 @@ public class WordTableModel extends AbstractTableModel {
                 return "Word";
             case 1:
                 return "Frequency";
+            case 2:
+                return "Tags";
             default:
                 return "Other Column";
         }

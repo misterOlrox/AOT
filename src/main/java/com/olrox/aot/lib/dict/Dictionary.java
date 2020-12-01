@@ -35,4 +35,6 @@ public interface Dictionary extends Serializable {
     Set<Text> getTexts();
 
     Text getTextByPath(String path);
+
+    void tagDictionary();
 }

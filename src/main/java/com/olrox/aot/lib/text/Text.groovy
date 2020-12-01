@@ -27,7 +27,7 @@ class Text implements Serializable {
             String line;
             while ((line = br.readLine()) != null) {
                 words.addAll(Arrays.stream(line.trim().toLowerCase().split(WORD_DELIMITER))
-                        .filter(s -> !s.isBlank() && !s.startsWith("-") && EnglishAlphabet.isEnglish(s))
+                        .filter(s -> !s.isBlank() && !s.startsWith("-") && !s.endsWith("-") && EnglishAlphabet.isEnglish(s))
                         .collect(Collectors.toList())
                 );
             }

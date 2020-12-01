@@ -1,5 +1,6 @@
 package com.olrox.aot.lib.dict;
 
+import com.olrox.aot.lib.tagging.Tagger;
 import com.olrox.aot.lib.text.Text;
 import com.olrox.aot.lib.word.EnglishWord;
 import com.olrox.aot.lib.word.Word;
@@ -136,5 +137,15 @@ public class DictionaryImpl implements Dictionary {
     @Override
     public Text getTextByPath(String path) {
         return texts.stream().filter(t -> t.getPathToText().equals(path)).findFirst().get();
+    }
+
+    @Override
+    public void tagDictionary() {
+        entireMap.forEach((k, v) -> v.removeAllTags());
+        texts.forEach(t -> {
+            if (t.getTaggedTextRepresentation() != null) {
+                Tagger.addTagsToWords(t.getTaggedTextRepresentation(), this);
+            }
+        });
     }
 }

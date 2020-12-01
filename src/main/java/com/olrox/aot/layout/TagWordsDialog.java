@@ -39,11 +39,7 @@ public class TagWordsDialog extends JDialog {
         textNameLabel.setText(text.getPathToText());
 
         buttonOK.setEnabled(false);
-        buttonOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onOK();
-            }
-        });
+        buttonOK.addActionListener(e -> onOK());
         buttonCancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onCancel();

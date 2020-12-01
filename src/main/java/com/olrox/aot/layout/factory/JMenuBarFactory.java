@@ -47,6 +47,9 @@ public class JMenuBarFactory {
         JMenuItem loadDictionaryItem = new JMenuItem("Load dictionary...");
         dictionariesMenu.add(loadDictionaryItem);
         dictionariesMenu.addSeparator();
+        JMenuItem tagDictionaryItem = new JMenuItem("Tag dictionary");
+        dictionariesMenu.add(tagDictionaryItem);
+        dictionariesMenu.addSeparator();
         JMenuItem clearDictionaryItem = new JMenuItem("Clear dictionary");
         dictionariesMenu.add(clearDictionaryItem);
 
@@ -102,6 +105,10 @@ public class JMenuBarFactory {
                 var dict = loader.load(file.getPath());
                 parentFrame.setDictionary(dict);
             }
+        });
+
+        tagDictionaryItem.addActionListener(l -> {
+            parentFrame.tagDictionary();
         });
 
         clearDictionaryItem.addActionListener(l -> {

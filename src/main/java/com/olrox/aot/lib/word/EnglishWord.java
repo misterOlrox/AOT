@@ -73,6 +73,13 @@ public class EnglishWord implements Word {
     }
 
     @Override
+    public String getTagsRepr() {
+        List<String> tagsList = new ArrayList<>(tags);
+        tagsList.sort(String::compareTo);
+        return String.join(", ", tagsList);
+    }
+
+    @Override
     public String toString() {
         return "EnglishWord{" +
                 "value='" + value + '\'' +

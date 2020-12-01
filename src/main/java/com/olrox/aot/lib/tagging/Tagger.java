@@ -73,7 +73,10 @@ public class Tagger {
         dictionary.getSortedByFrequency().forEach(word -> {
             if (word.getTags().isEmpty()) {
                 String[] eachtag1 = tagger.tagString(word.getValue()).split("\\s+");
-                word.addTag(eachtag1[eachtag1.length-1].split("_")[1]);
+                String tag = eachtag1[eachtag1.length - 1].split("_")[1];
+                if (tagsMap.containsKey(tag)) {
+                    word.addTag(tag);
+                }
             }
         });
     }
