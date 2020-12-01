@@ -1,6 +1,7 @@
 package com.olrox.aot.layout;
 
 import com.olrox.aot.layout.model.WordTableModel;
+import com.olrox.aot.lib.tagging.Tagger;
 import com.olrox.aot.lib.word.Word;
 
 import javax.swing.JButton;
@@ -26,6 +27,8 @@ public class EditWordDialog extends JDialog {
     private JButton deleteButton;
     private JButton showEntriesButton;
     private JList<String> tagsList;
+    private JButton addTagButton;
+    private JButton removeTagButton;
 
     public EditWordDialog(WordTableModel wordTableModel, int rowInd, int colInd) {
         setContentPane(contentPane);
@@ -63,6 +66,27 @@ public class EditWordDialog extends JDialog {
 
         });
 
+        addTagButton.addActionListener(l -> {
+            String result = JOptionPane.showInputDialog("Enter tag");
+            if (!Tagger.tagsMap.containsKey(result)) {
+                JOptionPane.showMessageDialog(this, "Wrong tag", "Wrong tag", JOptionPane.ERROR_MESSAGE);
+            } else {
+                word.addTag(result);
+                tagsList.setListData(word.getTags().toArray(new String[0]));
+            }
+        });
+
+        removeTagButton.addActionListener(l -> {
+            int index = tagsList.getSelectedIndex();
+            if (index == -1) {
+                JOptionPane.showMessageDialog(this, "Select tag", "Select tag", JOptionPane.ERROR_MESSAGE);
+            } else {
+                String tagToDelete = tagsList.getSelectedValue();
+                word.removeTag(tagToDelete);
+                tagsList.setListData(word.getTags().toArray(new String[0]));
+            }
+        });
+
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -74,7 +98,7 @@ public class EditWordDialog extends JDialog {
                 onCancel();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-        setPreferredSize(new Dimension(600, 200));
+        setPreferredSize(new Dimension(600, 300));
         pack();
     }
 
