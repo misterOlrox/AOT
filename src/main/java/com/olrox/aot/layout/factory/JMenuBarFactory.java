@@ -2,6 +2,8 @@ package com.olrox.aot.layout.factory;
 
 import com.olrox.aot.MainFrame;
 import com.olrox.aot.layout.AboutTagsDialog;
+import com.olrox.aot.layout.PairFrequencyDialog;
+import com.olrox.aot.layout.TagFrequenceDialog;
 import com.olrox.aot.layout.TagWordsDialog;
 import com.olrox.aot.layout.TextChooserDialog;
 import com.olrox.aot.lib.dict.Dictionary;
@@ -34,6 +36,8 @@ public class JMenuBarFactory {
         menuBar.add(dictionariesMenu);
         JMenu wordsMenu = new JMenu("Words");
         menuBar.add(wordsMenu);
+        JMenu statsMenu = new JMenu("Statistic");
+        menuBar.add(statsMenu);
         JMenu helpMenu = new JMenu("Help");
         menuBar.add(helpMenu);
 
@@ -57,6 +61,13 @@ public class JMenuBarFactory {
 
         JMenuItem addWordItem = new JMenuItem("Add word...");
         wordsMenu.add(addWordItem);
+
+        JMenuItem tagFrequenceItem = new JMenuItem("Tag frequency");
+        statsMenu.add(tagFrequenceItem);
+        JMenuItem wordTagFrequenceItem = new JMenuItem("Word_Tag frequency");
+        statsMenu.add(wordTagFrequenceItem);
+        JMenuItem tagTagFrequenceItem = new JMenuItem("Tag_Tag frequency");
+        statsMenu.add(tagTagFrequenceItem);
 
         JMenuItem wordTagsItem = new JMenuItem("About word tags...");
         helpMenu.add(wordTagsItem);
@@ -124,6 +135,21 @@ public class JMenuBarFactory {
         addWordItem.addActionListener(l -> {
             String result = JOptionPane.showInputDialog(parentFrame, "New word: ");
             parentFrame.addWord(result);
+        });
+
+        tagFrequenceItem.addActionListener(l -> {
+            TagFrequenceDialog tagFrequenceDialog = new TagFrequenceDialog(parentFrame.getDictionary().tagsFrequency());
+            tagFrequenceDialog.setVisible(true);
+        });
+
+        wordTagFrequenceItem.addActionListener(l -> {
+            PairFrequencyDialog pairFrequencyDialog = new PairFrequencyDialog("Word", "Tag", parentFrame.getDictionary().wordTagPairsFrequency());
+            pairFrequencyDialog.setVisible(true);
+        });
+
+        tagTagFrequenceItem.addActionListener(l -> {
+            TagFrequenceDialog tagFrequenceDialog = new TagFrequenceDialog(parentFrame.getDictionary().tagsTagsPairFrequency());
+            tagFrequenceDialog.setVisible(true);
         });
 
         wordTagsItem.addActionListener(l -> {

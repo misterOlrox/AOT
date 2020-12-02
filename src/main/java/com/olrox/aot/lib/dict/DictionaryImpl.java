@@ -7,14 +7,18 @@ import com.olrox.aot.lib.word.CanonicalForm;
 import com.olrox.aot.lib.word.EnglishWord;
 import com.olrox.aot.lib.word.Word;
 import com.olrox.aot.lib.word.WordEntry;
+import org.apache.commons.lang3.tuple.Pair;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.NavigableMap;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class DictionaryImpl implements Dictionary {
@@ -166,5 +170,75 @@ public class DictionaryImpl implements Dictionary {
             word.setCanonicalForm(canonicalFormInDict);
             canonicalFormInDict.addWord(word);
         });
+    }
+
+    @Override
+    public NavigableMap<String, Integer> tagsFrequency() {
+        TreeMap<String, Integer> tagCount = new TreeMap<>();
+        Tagger.tagsMap.keySet().forEach(k -> tagCount.put(k, 0));
+        texts.forEach(t -> {
+            if (t.getTaggedTextRepresentation() != null) {
+                String taggedText = t.getTaggedTextRepresentation();
+                String[] eachtag = taggedText.split("\\s+");
+                for (String s : eachtag) {
+                    String tag = s.split("_")[1];
+                    if (Tagger.tagsMap.containsKey(tag)) {
+                        int old = tagCount.get(tag);
+                        tagCount.put(tag, ++old);
+                    }
+                }
+            }
+        });
+
+        return tagCount;
+    }
+
+    @Override
+    public NavigableMap<String, Integer> tagsTagsPairFrequency() {
+        TreeMap<String, Integer> count = new TreeMap<>();
+        texts.forEach(t -> {
+            if (t.getTaggedTextRepresentation() != null) {
+                String taggedText = t.getTaggedTextRepresentation();
+                String[] eachtag = taggedText.split("\\s+");
+                for (int i = 1; i < eachtag.length; i++) {
+                    String tag1 = eachtag[i - 1].split("_")[1];
+                    String tag2 = eachtag[i].split("_")[1];
+                    if ((Tagger.tagsMap.containsKey(tag1) || Tagger.isPunctuationMark(tag1))
+                            && (Tagger.tagsMap.containsKey(tag2) || Tagger.isPunctuationMark(tag2))) {
+                        List<String> tagsList = new ArrayList<>();
+                        tagsList.add(tag1);
+                        tagsList.add(tag2);
+                        tagsList.sort(String::compareTo);
+                        String tagPair = tagsList.get(0) + "_" + tagsList.get(1);
+                        Integer old = count.get(tagPair);
+                        count.put(tagPair, old == null ? 1 : ++old);
+                    }
+                }
+            }
+        });
+
+        return count;
+    }
+
+    @Override
+    public NavigableMap<Pair<String, String>, Integer> wordTagPairsFrequency() {
+        TreeMap<Pair<String, String>, Integer> count = new TreeMap<>();
+        texts.forEach(t -> {
+            if (t.getTaggedTextRepresentation() != null) {
+                String taggedText = t.getTaggedTextRepresentation();
+                String[] eachtag = taggedText.split("\\s+");
+                for (String s : eachtag) {
+                    String word = s.split("_")[0].toLowerCase();
+                    String tag = s.split("_")[1];
+                    if (entireMap.containsKey(word) && (Tagger.tagsMap.containsKey(tag) || Tagger.isPunctuationMark(tag))) {
+                        var pair = Pair.of(word, tag);
+                        Integer old = count.get(pair);
+                        count.put(pair, old == null ? 1 : ++old);
+                    }
+                }
+            }
+        });
+
+        return count;
     }
 }

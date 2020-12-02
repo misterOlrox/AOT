@@ -2,9 +2,11 @@ package com.olrox.aot.lib.dict;
 
 import com.olrox.aot.lib.text.Text;
 import com.olrox.aot.lib.word.Word;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.NavigableMap;
 import java.util.Set;
 
 public interface Dictionary extends Serializable {
@@ -39,4 +41,10 @@ public interface Dictionary extends Serializable {
     void tagDictionary();
 
     void generateCanonicalForms();
+
+    NavigableMap<String, Integer> tagsFrequency();
+
+    NavigableMap<String, Integer> tagsTagsPairFrequency();
+
+    NavigableMap<Pair<String, String>, Integer> wordTagPairsFrequency();
 }

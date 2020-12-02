@@ -4,7 +4,9 @@ import com.olrox.aot.lib.dict.Dictionary;
 import com.olrox.aot.lib.word.Word;
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -79,5 +81,13 @@ public class Tagger {
                 }
             }
         });
+    }
+
+    private static List<String> punkt = Arrays.asList(
+            ".",",","?","!","/","-","(",")",":",";"
+    );
+
+    public static boolean isPunctuationMark(String p){
+        return punkt.contains(p);
     }
 }
