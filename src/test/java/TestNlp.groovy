@@ -1,8 +1,11 @@
 import com.olrox.aot.lib.dict.Dictionary
 import com.olrox.aot.lib.dict.DictionaryImpl
+import com.olrox.aot.lib.util.nlp.CanonicalFormUtils
 import com.olrox.aot.lib.word.Word
 import edu.stanford.nlp.tagger.maxent.MaxentTagger
 import org.junit.jupiter.api.Test
+
+import static org.junit.Assert.assertEquals
 
 class TestNlp {
 
@@ -37,5 +40,16 @@ class TestNlp {
             word.addTag(eachtag[i].split("_")[1])
         }
         dictionary.getSortedByFrequency().stream().forEach(x -> println(x))
+    }
+
+    @Test
+    void testCanonicalForm() {
+        assertEquals("work", CanonicalFormUtils.generate("worked"));
+    }
+
+    @Test
+    void testCanonicalFormText() {
+        def res = CanonicalFormUtils.calculate(CanonicalFormUtils.generate("I worked at the shop."))
+        println(res)
     }
 }

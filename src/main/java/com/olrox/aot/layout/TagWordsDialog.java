@@ -1,7 +1,7 @@
 package com.olrox.aot.layout;
 
 import com.olrox.aot.lib.dict.Dictionary;
-import com.olrox.aot.lib.tagging.Tagger;
+import com.olrox.aot.lib.util.nlp.Tagger;
 import com.olrox.aot.lib.text.Text;
 
 import javax.swing.JButton;

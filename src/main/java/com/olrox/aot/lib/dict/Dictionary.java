@@ -37,4 +37,6 @@ public interface Dictionary extends Serializable {
     Text getTextByPath(String path);
 
     void tagDictionary();
+
+    void generateCanonicalForms();
 }

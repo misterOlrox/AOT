@@ -12,6 +12,7 @@ public class EnglishWord implements Word {
     private String value;
     private List<WordEntry> wordEntries = new ArrayList<>();
     private Set<String> tags = new HashSet<>();
+    private CanonicalForm canonicalForm;
 
     public EnglishWord(String value) {
         this.value = value;
@@ -25,6 +26,16 @@ public class EnglishWord implements Word {
     @Override
     public void setValue(String value) {
         this.value = value;
+    }
+
+    @Override
+    public String getCanonicalFormRepr() {
+        return canonicalForm == null ? "" : canonicalForm.toString();
+    }
+
+    @Override
+    public void setCanonicalForm(CanonicalForm canonicalForm) {
+        this.canonicalForm = canonicalForm;
     }
 
     @Override

@@ -8,9 +8,17 @@ import java.util.Set;
 
 public interface Word extends Serializable {
     String getValue();
+
     void setValue(String value);
+
     void addEntry(WordEntry wordEntry);
+
+    String getCanonicalFormRepr();
+
+    void setCanonicalForm(CanonicalForm canonicalForm);
+
     long getFrequency();
+
     void addEntries(List<WordEntry> wordEntries);
 
     List<WordEntry> getWordEntries();

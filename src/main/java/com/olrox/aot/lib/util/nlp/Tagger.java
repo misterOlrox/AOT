@@ -1,4 +1,4 @@
-package com.olrox.aot.lib.tagging;
+package com.olrox.aot.lib.util.nlp;
 
 import com.olrox.aot.lib.dict.Dictionary;
 import com.olrox.aot.lib.word.Word;

@@ -49,6 +49,8 @@ public class JMenuBarFactory {
         dictionariesMenu.addSeparator();
         JMenuItem tagDictionaryItem = new JMenuItem("Tag dictionary");
         dictionariesMenu.add(tagDictionaryItem);
+        JMenuItem canonicalFormsItem = new JMenuItem("Generate canonical forms");
+        dictionariesMenu.add(canonicalFormsItem);
         dictionariesMenu.addSeparator();
         JMenuItem clearDictionaryItem = new JMenuItem("Clear dictionary");
         dictionariesMenu.add(clearDictionaryItem);
@@ -109,6 +111,10 @@ public class JMenuBarFactory {
 
         tagDictionaryItem.addActionListener(l -> {
             parentFrame.tagDictionary();
+        });
+
+        canonicalFormsItem.addActionListener(l -> {
+            parentFrame.generateCanonicalForms();
         });
 
         clearDictionaryItem.addActionListener(l -> {

@@ -1,7 +1,9 @@
 package com.olrox.aot.lib.dict;
 
-import com.olrox.aot.lib.tagging.Tagger;
 import com.olrox.aot.lib.text.Text;
+import com.olrox.aot.lib.util.nlp.CanonicalFormUtils;
+import com.olrox.aot.lib.util.nlp.Tagger;
+import com.olrox.aot.lib.word.CanonicalForm;
 import com.olrox.aot.lib.word.EnglishWord;
 import com.olrox.aot.lib.word.Word;
 import com.olrox.aot.lib.word.WordEntry;
@@ -20,6 +22,7 @@ public class DictionaryImpl implements Dictionary {
     private long wordUsageCounter = 0;
     private Map<String, Word> entireMap = new HashMap<>();
     private Set<Text> texts = new HashSet<>();
+    private Map<String, CanonicalForm> canonicalFormMap = new HashMap<>();
 
     @Override
     public Word addWord(String word) {
@@ -146,6 +149,22 @@ public class DictionaryImpl implements Dictionary {
             if (t.getTaggedTextRepresentation() != null) {
                 Tagger.addTagsToWords(t.getTaggedTextRepresentation(), this);
             }
+        });
+    }
+
+    @Override
+    public void generateCanonicalForms() {
+        canonicalFormMap.clear();
+        entireMap.forEach((k, word) -> {
+            word.setCanonicalForm(null);
+            String canonicalFormValue = CanonicalFormUtils.generate(k);
+            CanonicalForm canonicalFormInDict = canonicalFormMap.get(canonicalFormValue);
+            if (canonicalFormInDict == null) {
+                canonicalFormInDict = new CanonicalForm(canonicalFormValue);
+                canonicalFormMap.put(canonicalFormValue, canonicalFormInDict);
+            }
+            word.setCanonicalForm(canonicalFormInDict);
+            canonicalFormInDict.addWord(word);
         });
     }
 }

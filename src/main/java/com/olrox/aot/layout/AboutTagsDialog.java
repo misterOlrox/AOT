@@ -1,6 +1,6 @@
 package com.olrox.aot.layout;
 
-import com.olrox.aot.lib.tagging.Tagger;
+import com.olrox.aot.lib.util.nlp.Tagger;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;

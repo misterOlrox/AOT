@@ -97,6 +97,11 @@ public class MainFrame extends JFrame {
         wordTableModel.fireTableDataChanged();
     }
 
+    public void generateCanonicalForms() {
+        dictionary.generateCanonicalForms();
+        wordTableModel.fireTableDataChanged();
+    }
+
     public Dictionary getDictionary() {
         return dictionary;
     }
