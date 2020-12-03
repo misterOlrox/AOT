@@ -44,7 +44,7 @@ public interface Dictionary extends Serializable {
 
     NavigableMap<String, Integer> tagsFrequency();
 
-    NavigableMap<String, Integer> tagsTagsPairFrequency();
+    NavigableMap<Pair<String, String>, Integer> tagsTagsPairFrequency();
 
     NavigableMap<Pair<String, String>, Integer> wordTagPairsFrequency();
 }

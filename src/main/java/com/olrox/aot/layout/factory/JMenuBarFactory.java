@@ -148,7 +148,7 @@ public class JMenuBarFactory {
         });
 
         tagTagFrequenceItem.addActionListener(l -> {
-            TagFrequenceDialog tagFrequenceDialog = new TagFrequenceDialog(parentFrame.getDictionary().tagsTagsPairFrequency());
+            PairFrequencyDialog tagFrequenceDialog = new PairFrequencyDialog("Tag1", "Tag2", parentFrame.getDictionary().tagsTagsPairFrequency());
             tagFrequenceDialog.setVisible(true);
         });
 

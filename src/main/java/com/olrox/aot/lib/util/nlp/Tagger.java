@@ -83,7 +83,7 @@ public class Tagger {
         });
     }
 
-    private static List<String> punkt = Arrays.asList(
+    public static List<String> punkt = Arrays.asList(
             ".",",","?","!","/","-","(",")",":",";"
     );
 

@@ -7,7 +7,6 @@ import com.olrox.aot.lib.word.Word;
 import com.olrox.aot.lib.word.WordEntry;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -182,8 +181,16 @@ public class DictionaryImpl implements Dictionary {
     }
 
     @Override
-    public NavigableMap<String, Integer> tagsTagsPairFrequency() {
-        TreeMap<String, Integer> count = new TreeMap<>();
+    public NavigableMap<Pair<String, String>, Integer> tagsTagsPairFrequency() {
+        TreeMap<Pair<String, String>, Integer> count = new TreeMap<>();
+        Set<String> setOfTags = new HashSet<>();
+        setOfTags.addAll(Tagger.tagsMap.keySet());
+        setOfTags.addAll(Tagger.punkt);
+        setOfTags.forEach(tag1 -> {
+            setOfTags.forEach(tag2 -> {
+                count.put(Pair.of(tag1, tag2), 0);
+            });
+        });
         texts.forEach(t -> {
             if (t.getTaggedTextRepresentation() != null) {
                 String taggedText = t.getTaggedTextRepresentation();
@@ -193,13 +200,9 @@ public class DictionaryImpl implements Dictionary {
                     String tag2 = eachtag[i].split("_")[1];
                     if ((Tagger.tagsMap.containsKey(tag1) || Tagger.isPunctuationMark(tag1))
                             && (Tagger.tagsMap.containsKey(tag2) || Tagger.isPunctuationMark(tag2))) {
-                        List<String> tagsList = new ArrayList<>();
-                        tagsList.add(tag1);
-                        tagsList.add(tag2);
-                        tagsList.sort(String::compareTo);
-                        String tagPair = tagsList.get(0) + "_" + tagsList.get(1);
-                        Integer old = count.get(tagPair);
-                        count.put(tagPair, old == null ? 1 : ++old);
+                        var pair = Pair.of(tag1, tag2);
+                        Integer old = count.get(pair);
+                        count.put(pair, ++old);
                     }
                 }
             }
