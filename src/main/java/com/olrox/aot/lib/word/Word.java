@@ -15,7 +15,9 @@ public interface Word extends Serializable {
 
     String getCanonicalFormRepr();
 
-    void setCanonicalForm(CanonicalForm canonicalForm);
+    void generateCanonicalForm();
+
+    void setCanonicalForm(String value);
 
     long getFrequency();
 

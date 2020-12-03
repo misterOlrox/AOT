@@ -29,6 +29,7 @@ public class EditWordDialog extends JDialog {
     private JList<String> tagsList;
     private JButton addTagButton;
     private JButton removeTagButton;
+    private JTextField canonicalFormTextField;
 
     public EditWordDialog(WordTableModel wordTableModel, int rowInd, int colInd) {
         setContentPane(contentPane);
@@ -36,11 +37,13 @@ public class EditWordDialog extends JDialog {
         getRootPane().setDefaultButton(buttonOK);
 
         textField1.setText((String) wordTableModel.getValueAt(rowInd, 0));
+        canonicalFormTextField.setText((String) wordTableModel.getValueAt(rowInd, 3));
         Word word = wordTableModel.getWord(rowInd);
         tagsList.setListData(word.getTags().toArray(new String[0]));
 
         buttonOK.addActionListener(e -> {
             wordTableModel.setValueAt(textField1.getText(), rowInd, colInd);
+            word.setCanonicalForm(canonicalFormTextField.getText());
             dispose();
         });
         deleteButton.addActionListener((e) -> {

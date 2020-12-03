@@ -5,7 +5,7 @@ import com.olrox.aot.lib.util.nlp.CanonicalFormUtils
 class CanonicalForm implements Serializable {
     String value
     private Set<String> tags = new HashSet<>()
-    private Set<Word> wordSet = new HashSet<>()
+    private Word word
 
     CanonicalForm(String value) {
         this.value = value
@@ -16,7 +16,7 @@ class CanonicalForm implements Serializable {
     }
 
     void addWord(Word word) {
-        wordSet.add(word)
+        this.word = word
         tags.addAll(CanonicalFormUtils.tagsOfCanonicalForm(word.getTags()))
     }
 

@@ -1,6 +1,7 @@
 package com.olrox.aot.lib.word;
 
 import com.olrox.aot.lib.text.Text;
+import com.olrox.aot.lib.util.nlp.CanonicalFormUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,8 +35,21 @@ public class EnglishWord implements Word {
     }
 
     @Override
-    public void setCanonicalForm(CanonicalForm canonicalForm) {
-        this.canonicalForm = canonicalForm;
+    public void generateCanonicalForm() {
+        if (canonicalForm == null) {
+            canonicalForm = new CanonicalForm(CanonicalFormUtils.generate(value));
+            canonicalForm.addWord(this);
+        }
+    }
+
+    @Override
+    public void setCanonicalForm(String value) {
+        String[] splitted = value.split("_");
+        this.canonicalForm = new CanonicalForm(splitted[0]);
+        canonicalForm.addWord(this);
+        for (int i = 1; i < splitted.length; i++) {
+            canonicalForm.addTag(splitted[i]);
+        }
     }
 
     @Override
