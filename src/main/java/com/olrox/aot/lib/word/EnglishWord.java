@@ -37,16 +37,15 @@ public class EnglishWord implements Word {
     @Override
     public void generateCanonicalForm() {
         if (canonicalForm == null) {
-            canonicalForm = new CanonicalForm(CanonicalFormUtils.generate(value));
-            canonicalForm.addWord(this);
+            canonicalForm = new CanonicalForm(CanonicalFormUtils.generate(value), this);
+            canonicalForm.generateCanonicalTags();
         }
     }
 
     @Override
     public void setCanonicalForm(String value) {
         String[] splitted = value.split("_");
-        this.canonicalForm = new CanonicalForm(splitted[0]);
-        canonicalForm.addWord(this);
+        this.canonicalForm = new CanonicalForm(splitted[0], this);
         for (int i = 1; i < splitted.length; i++) {
             canonicalForm.addTag(splitted[i]);
         }

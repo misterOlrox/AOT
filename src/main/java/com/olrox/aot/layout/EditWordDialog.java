@@ -42,8 +42,8 @@ public class EditWordDialog extends JDialog {
         tagsList.setListData(word.getTags().toArray(new String[0]));
 
         buttonOK.addActionListener(e -> {
-            wordTableModel.setValueAt(textField1.getText(), rowInd, colInd);
             word.setCanonicalForm(canonicalFormTextField.getText());
+            wordTableModel.setValueAt(textField1.getText(), rowInd, colInd);
             dispose();
         });
         deleteButton.addActionListener((e) -> {

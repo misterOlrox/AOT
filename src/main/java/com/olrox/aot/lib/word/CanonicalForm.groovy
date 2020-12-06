@@ -7,16 +7,16 @@ class CanonicalForm implements Serializable {
     private Set<String> tags = new HashSet<>()
     private Word word
 
-    CanonicalForm(String value) {
+    CanonicalForm(String value, Word word) {
         this.value = value
+        this.word = word
     }
 
     void addTag(String tag) {
         tags.add(tag)
     }
 
-    void addWord(Word word) {
-        this.word = word
+    void generateCanonicalTags() {
         tags.addAll(CanonicalFormUtils.tagsOfCanonicalForm(word.getTags()))
     }
 
@@ -24,6 +24,7 @@ class CanonicalForm implements Serializable {
     String toString() {
         List<String> tagsList = new ArrayList<>(tags);
         tagsList.sort(String::compareTo);
-        return value + "_" + String.join("_", tagsList);
+        tagsList.add(0, value);
+        return String.join("_", tagsList);
     }
 }
