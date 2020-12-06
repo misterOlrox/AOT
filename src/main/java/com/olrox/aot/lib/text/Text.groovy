@@ -9,7 +9,7 @@ import java.util.stream.Collectors
 
 class Text implements Serializable {
 
-    public final static String WORD_DELIMITER = "[\\s/.,‚!`?:;‘’“”*_+—\\d\"'\\)\\(\\n]+";
+    public final static String WORD_DELIMITER = "[\\s/.,‚!`?:;‘’“”*_+—…\\d\"'\\)\\(\\n]+";
     private final static TextSaver textSaver = new TextSaver()
 
     final String pathToText
